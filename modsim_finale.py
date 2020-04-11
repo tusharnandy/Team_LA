@@ -64,9 +64,9 @@ days = 5        # we can choose days for simulation
 
 for s in len(nation_info):
     population = nation[s]
-    x = nation_info[0]   # x * y = total area of the state
-    y = nation_info[1]    # it is a random distribution
-    pop = nation_info[2]
+    x = nation_info[s][0]   # x * y = total area of the state
+    y = nation_info[s][1]    # it is a random distribution
+    pop = nation_info[s][2]
 
     while True:
         all_done = True
