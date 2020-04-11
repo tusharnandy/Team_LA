@@ -24,7 +24,8 @@ pop = 40000 # total population
 health_status = 0 # index of health status
 
 for i in range(pop):
-    a = [0, [randint(1, x), randint(1, y)], 0 , 0] # each element has 3 attributes: status, coordinates, time , day of death
+    a = [0, [randint(1, x), randint(1, y)], 0 , 0] # each element has 4 attributes: status, coordinates, 
+                                                   # days spent in suffering , day of death
     for m in range (1,13):  #predefine day of death
         c = random()
         if c <=0.05:
@@ -41,11 +42,9 @@ for i in range(10):
     infected = 4
     random_guy[health_status] = infected
 
-days = 5        # choose days for simulation
-
+days = 5        # we can choose days for simulation
+                # By default, this code runs till all infected either die or recover 
 while True:
-
-
     all_done = True
 
     for i in range(pop):
@@ -53,13 +52,15 @@ while True:
                                 # and updating health status
         if a[health_status] > 2: # if human is sick
             all_done = False
+            
             a[2] += 1               # first, we increase the days
             if a[2]==a[3]:
                 a[health_status] = 2
             elif a[2] == 5:         # if sick guy is on day5, hospitalise
                 a[health_status] = 3
-            elif a[2] == 12:         # if human survives till day7, recover
+            elif a[2] == 12:         # if he survives till day12, recover
                 a[health_status] = 1
+    
     if all_done:
         break
 
