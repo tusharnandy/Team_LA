@@ -1,3 +1,11 @@
+import csv
+
+f=open('AreaExpressedInXY(1).csv', 'r')
+reader=csv.reader(f)
+XYpop=[]
+
+for row in reader:
+  XYpop.append([int(row[2]), int(row[3]), int(row[4])])
 
 from random import *
 
@@ -18,7 +26,7 @@ def close_enough(s, t):
 
 
 
-nation_info = []
+nation_info = XYpop[:]
 nation = []
 
 for i in nation_info:
