@@ -24,7 +24,15 @@ pop = 40000 # total population
 health_status = 0 # index of health status
 
 for i in range(pop):
-    a = [0, [randint(1, x), randint(1, y)], 0] # each element has 3 attributes: status, coordinates, time
+    a = [0, [randint(1, x), randint(1, y)], 0 , 0] # each element has 3 attributes: status, coordinates, time , day of death
+    for m in range (1,13):  #predefine day of death
+        c = random()
+        if c <=0.05:
+            break          # probability of dying
+    if m<12:
+        a[3]=m
+    elif c<=0.05:
+        a[3]=12
     population.append(a[:])
 
 I0 = sample(list(range(pop)), 10)       # randomly infecting 10 people
@@ -46,11 +54,11 @@ while True:
         if a[health_status] > 2: # if human is sick
             all_done = False
             a[2] += 1               # first, we increase the days
-            if random() < 0.05:     # probability of dying
+            if a[2]==a[3]:
                 a[health_status] = 2
             elif a[2] == 5:         # if sick guy is on day5, hospitalise
                 a[health_status] = 3
-            elif a[2] == 7:         # if human survives till day7, recover
+            elif a[2] == 12:         # if human survives till day7, recover
                 a[health_status] = 1
     if all_done:
         break
@@ -91,9 +99,12 @@ while True:
         else:
             sick += 1
 
-    print(f"dead: {deadcount}")
-    print(f"immune: {immune}")
-    print(f"sick: {sick}")
-    print(f"fine: {fine}")
-    print(f"admitted: {hospitalised}")
-    print('')
+print(f"dead: {deadcount}")
+print(f"immune: {immune}")
+print(f"sick: {sick}")
+print(f"fine: {fine}")
+print(f"admitted: {hospitalised}")
+print('')
+
+
+
