@@ -7,6 +7,15 @@ from random import *
     3: hospitalised
     4: infected but not showing symptoms
 '''
+def close_enough(s, t):
+    sq = (s[0]-t[0])**2 + (s[1]-t[1])**2
+    distance = sq**0.5
+    if distance <= 10.0:
+        return True
+    else:
+        return False
+
+
 population = [] # a !D array of humans
 x = 10000   # x * y = total area of the state
 y = 2000    # it is a random distribution
@@ -26,7 +35,7 @@ for i in range(10):
 
 days = 5        # choose days for simulation
 
-for i in range(days):
+while True:
 
 
     all_done = True
@@ -34,10 +43,8 @@ for i in range(days):
     for i in range(pop):
         a = population[i]     # this where I am checking
                                 # and updating health status
-        if a[health_status] == 0:
+        if a[health_status] > 2: # if human is sick
             all_done = False
-
-        elif a[health_status] > 2: # if human is sick
             a[2] += 1               # first, we increase the days
             if random() < 0.05:     # probability of dying
                 a[health_status] = 2
@@ -59,34 +66,34 @@ for i in range(days):
             continue
         else:
             for j in range(1, pop):
-                s = population[i][1]
-                t = population[j][1]
-                distance = ((s[0] - t[0])**2 + (s[1] - t[1])**2)**0.5
-                if distance <= 10 and population[j][health_status] == 0:
-                    population[j][health_status] = 4
+                v = population[i]
+                t = population[j]
+                if t[health_status] == 0 and close_enough(v[1], t[1]):
+                    t[health_status] = 4
 
 
-fine = 0
-deadcount = 0
-immune = 0
-sick = 0
-hospitalised = 0
-for i in range(pop):
-    person = population[i]
+    fine = 0
+    deadcount = 0
+    immune = 0
+    sick = 0
+    hospitalised = 0
+    for i in range(pop):
+        person = population[i]
 
-    if person[health_status] == 2:
-        deadcount += 1
-    elif person[health_status] ==1:
-        immune += 1
-    elif person[health_status] == 0:
-        fine += 1
-    elif person[health_status] == 3:
-        hospitalised +=1
-    else:
-        sick += 1
+        if person[health_status] == 2:
+            deadcount += 1
+        elif person[health_status] ==1:
+            immune += 1
+        elif person[health_status] == 0:
+            fine += 1
+        elif person[health_status] == 3:
+            hospitalised +=1
+        else:
+            sick += 1
 
-print(f"dead: {deadcount}")
-print(f"immune: {immune}")
-print(f"sick: {sick}")
-print(f"fine: {fine}")
-print(f"admitted: {hospitalised}")
+    print(f"dead: {deadcount}")
+    print(f"immune: {immune}")
+    print(f"sick: {sick}")
+    print(f"fine: {fine}")
+    print(f"admitted: {hospitalised}")
+    print('')
